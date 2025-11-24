@@ -6,8 +6,8 @@ namespace SimpleFolderIcon.Editor
 {
     public class IconDictionaryCreator : AssetPostprocessor
     {
-        private const string IconsPath = @"Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
-        private const string IconsAbsolutePath = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
+        private const string IconsPath = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
+        private const string IconsPathWithSlash = IconsPath + "/";
         internal static Dictionary<string, Texture> IconDictionary;
 
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
@@ -26,7 +26,7 @@ namespace SimpleFolderIcon.Editor
         private static bool ContainsIconAsset(string[] assets)
         {
             foreach (string str in assets)
-                if (!string.IsNullOrEmpty(str) && Path.GetDirectoryName(str) == IconsPath)
+                if (!string.IsNullOrEmpty(str) && str.StartsWith(IconsPathWithSlash))
                     return true;
             return false;
         }
@@ -39,7 +39,7 @@ namespace SimpleFolderIcon.Editor
             FileInfo[] info = dir.GetFiles("*.png");
             foreach(FileInfo f in info)
             {
-                var texture = (Texture)AssetDatabase.LoadAssetAtPath($"{IconsAbsolutePath}/{f.Name}", typeof(Texture2D));
+                var texture = (Texture)AssetDatabase.LoadAssetAtPath($"{IconsPath}/{f.Name}", typeof(Texture2D));
                 dictionary.Add(Path.GetFileNameWithoutExtension(f.Name),texture);
             }
             IconDictionary = dictionary;
