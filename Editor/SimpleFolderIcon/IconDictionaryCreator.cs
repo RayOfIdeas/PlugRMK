@@ -27,7 +27,8 @@ namespace SimpleFolderIcon.Editor
         {
             foreach (string str in assets)
             {
-                if (Path.GetDirectoryName(str) == IconsPath)
+                var directory = Path.GetDirectoryName(str)?.Replace('\\', '/');
+                if (directory == IconsPath)
                 {
                     return true;
                 }
