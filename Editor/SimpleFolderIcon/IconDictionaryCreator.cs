@@ -26,20 +26,8 @@ namespace SimpleFolderIcon.Editor
         private static bool ContainsIconAsset(string[] assets)
         {
             foreach (string str in assets)
-            {
-                try
-                {
-                    var directory = Path.GetDirectoryName(str);
-                    if (directory == IconsPath)
-                    {
-                        return true;
-                    }
-                }
-                catch
-                {
-                    Debug.LogWarning($"ERROR {str}");
-                }
-            }
+                if (!string.IsNullOrEmpty(str) && Path.GetDirectoryName(str) == IconsPath)
+                    return true;
             return false;
         }
 
