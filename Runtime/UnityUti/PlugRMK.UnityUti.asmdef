@@ -1,0 +1,16 @@
+{
+    "name": "PlugRMK.UnityUti",
+    "rootNamespace": "PlugRMK.UnityUti",
+    "references": [
+        "GUID:3371f70abd8cc4846aaf3f566c8938c1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+    "name": "PlugRMK.UnityUti.EditorUti",
+    "rootNamespace": "PlugRMK.UnityUti.EditorUti",
+    "references": [
+        "GUID:3371f70abd8cc4846aaf3f566c8938c1",
+        "GUID:2c799ba372d8ea947a72dc1f78e84b6e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

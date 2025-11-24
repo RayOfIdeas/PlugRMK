@@ -1,0 +1,17 @@
+{
+  "name": "com.rayofideas.plugrmk",
+  "version": "1.0.0",
+  "displayName": "PlugRMK",
+  "description": "Editor tools and script extension libraries to enchance productivity",
+  "unity": "6000.2",
+  "unityRelease": "6f2",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "keywords": [],
+  "author": {
+    "name": "CompanyRMK",
+    "email": "",
+    "url": ""
+  }
+}

@@ -1,0 +1,267 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d78046aabd7548519fe609348c8e09d, type: 3}
+  m_Name: HierarchyExtStyleList
+  m_EditorClassIdentifier: 
+  styles:
+  - token: GameManager
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0.48335204, g: 1, b: 0.43921566, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.5019608, g: 0.30149144, b: 0.21568626, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.259417, b: 0.21176471, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.25952962, b: 0.17254905, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: Main
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0.48335204, g: 1, b: 0.43921566, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.5019608, g: 0.30149144, b: 0.21568626, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.259417, b: 0.21176471, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.25952962, b: 0.17254905, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: Player
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0.9532611, g: 1, b: 0.43921566, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.5019608, g: 0.30149144, b: 0.21568626, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.259417, b: 0.21176471, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.25952962, b: 0.17254905, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Characters
+    removeTokenFromLabel: 0
+    labelName: "\u2193  Characters  \u2193"
+    textColor: {r: 0.43921566, g: 1, b: 0.9677472, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.21568626, g: 0.5019608, b: 0.49346465, a: 1}
+    bgColorHover: {r: 0.21176471, g: 0.33892924, b: 0.43529412, a: 1}
+    bgColorSelect: {r: 0.17254905, g: 0.3206746, b: 0.4627451, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------UI
+    removeTokenFromLabel: 0
+    labelName: "\u2193 UI  \u2193"
+    textColor: {r: 0.43921566, g: 0.97911316, b: 1, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.21568626, g: 0.3335296, b: 0.5019608, a: 1}
+    bgColorHover: {r: 0.21176471, g: 0.29370272, b: 0.43529412, a: 1}
+    bgColorSelect: {r: 0.17254905, g: 0.26478484, b: 0.4627451, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------VFX
+    removeTokenFromLabel: 0
+    labelName: "\u2193 VFX  \u2193"
+    textColor: {r: 0.9799274, g: 0.43921566, b: 1, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.5019608, g: 0.21568626, b: 0.49994802, a: 1}
+    bgColorHover: {r: 0.42545485, g: 0.21176471, b: 0.43529412, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.17254905, b: 0.46150485, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Objects
+    removeTokenFromLabel: 1
+    labelName: "\u2193 Objects  \u2193"
+    textColor: {r: 1, g: 0.954231, b: 0.43921566, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.5019608, g: 0.4608594, b: 0.21568626, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.4025055, b: 0.21176471, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.39516184, b: 0.17254905, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Map
+    removeTokenFromLabel: 0
+    labelName: "\u2193 Map  \u2193"
+    textColor: {r: 0.4575472, g: 1, b: 0.808546, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.030838378, g: 0.5943396, b: 0.4135145, a: 1}
+    bgColorHover: {r: 0.16078432, g: 0.4627451, b: 0.3674162, a: 1}
+    bgColorSelect: {r: 0.09611963, g: 0.4528302, b: 0.34144166, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Runtime
+    removeTokenFromLabel: 0
+    labelName: "\u2193 Runtime  \u2193"
+    textColor: {r: 1, g: 0.62237537, b: 0.43921566, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.5019608, g: 0.30149144, b: 0.21568626, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.259417, b: 0.21176471, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.25952962, b: 0.17254905, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Debug
+    removeTokenFromLabel: 0
+    labelName: "\u2193 Debug  \u2193"
+    textColor: {r: 1, g: 0.514151, b: 0.59588325, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.667, g: 0.10405197, b: 0.28913087, a: 1}
+    bgColorHover: {r: 0.43529412, g: 0.21176471, b: 0.31023854, a: 1}
+    bgColorSelect: {r: 0.4627451, g: 0.17254905, b: 0.27439842, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: --------------------Items
+    removeTokenFromLabel: 0
+    labelName: "\u2193 Items  \u2193"
+    textColor: {r: 0.43921566, g: 1, b: 0.44122064, a: 1}
+    textAlignment: 4
+    fontStyle: 3
+    textOffset: {x: 0, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.21568626, g: 0.5019608, b: 0.22975767, a: 1}
+    bgColorHover: {r: 0.21176471, g: 0.43529412, b: 0.21355826, a: 1}
+    bgColorSelect: {r: 0.20005092, g: 0.4627451, b: 0.17254905, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: 0, y: 0}
+    icon: {fileID: 0}
+  - token: ---
+    removeTokenFromLabel: 0
+    labelName: ---
+    textColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+    textAlignment: 4
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 1
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 1
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Leg
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 1, g: 0.9935299, b: 0, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Knee
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 1, g: 0.7734495, b: 0, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Foot
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 1, g: 0.56150126, b: 0, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Arm
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0.3726415, g: 1, b: 0.7596307, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Elbow
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0, g: 0.9339623, b: 0.25356442, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
+  - token: Hand
+    removeTokenFromLabel: 0
+    labelName: 
+    textColor: {r: 0.6034, g: 0.8962264, b: 0, a: 1}
+    textAlignment: 3
+    fontStyle: 0
+    textOffset: {x: 18, y: 0}
+    isCustomBG: 0
+    bgColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+    bgColorHover: {r: 0.284, g: 0.284, b: 0.284, a: 1}
+    bgColorSelect: {r: 0.36200002, g: 0.36200002, b: 0.36200002, a: 1}
+    isCustomBGOffset: 0
+    bgOffset: {x: -28, y: 0}
+    icon: {fileID: 0}
