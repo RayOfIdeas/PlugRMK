@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="project://database/Packages/com.rayofideas.plugrmk/Editor/ForceSerializeWindow/ForceSerializeWindow.uss?fileID=7433441132597879392&amp;guid=eb78a59c011ed264483709c31da887d9&amp;type=3#ForceSerializeWindow" />
+    <ui:VisualElement style="height:8px;" />
+    <ui:TextField name="keywordField" label="Search keywords" />
+    <ui:VisualElement style="height:4px;" />
+    <ui:Button name="serializeButton" class="big-button" text="Serialize" />
+</ui:UXML>
