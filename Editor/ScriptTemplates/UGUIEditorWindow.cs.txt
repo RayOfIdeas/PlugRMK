@@ -1,0 +1,197 @@
+using static PlugRMK.UnityUti.ColorUtility;
+using PlugRMK.GenericUti;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : EditorWindow
+{
+    #region [Variables: Appearance Properties]
+
+    Vector2 scrollViewPos;
+    EditorColors guiColors = new();
+    readonly Padding padding = new(5, 5, 10, 10);
+    readonly EditorPos defaultFieldSize = new EditorPos(100, 25);
+    readonly EditorPos iconSize = new EditorPos(25, 25);
+
+    #endregion
+
+    #region [Methods: Editor]
+
+    [MenuItem("Tools/"+nameof(#SCRIPTNAME#))]
+    public static void OpenWindow()
+    {
+        GetWindow<#SCRIPTNAME#>(nameof(#SCRIPTNAME#)).Show();
+    }
+
+    #endregion
+
+    #region [Methods: Utilty]
+
+    void MakeScrollView(Rect rect, Rect viewRect, Action onMakeContent)
+    {
+        scrollViewPos = GUI.BeginScrollView(rect, scrollViewPos, viewRect);
+        onMakeContent();
+        GUI.EndScrollView();
+    }
+
+    Vector2 GetPaddedWindowSize()
+    {
+        return new Vector2(position.width - padding.Horizontal, position.height - padding.Vertical);
+    }
+
+    (float width, float height) MakeLabel(Vector2 pos, string labelName, string separator = ":", string tooltip = "")
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        EditorGUI.LabelField(rect, new GUIContent(labelName + separator, tooltip));
+        return (rect.width, rect.height);
+    }
+
+    (float width, float heigth) MakeTextField(Vector2 pos, ref string stringVar)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width, defaultFieldSize.Height));
+        var textStyle = new GUIStyle(GUI.skin.textField);
+        textStyle.alignment = TextAnchor.MiddleLeft;
+        stringVar = EditorGUI.TextField(rect, stringVar, textStyle);
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeToggle(Vector2 pos, ref bool boolValue, string boolName)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width, defaultFieldSize.Height));
+
+        if (boolValue && !GUI.Toggle(rect, boolValue, new GUIContent(boolName)))
+            boolValue = false;
+
+        else if (!boolValue && GUI.Toggle(rect, boolValue, new GUIContent(boolName)))
+            boolValue = true;
+
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeToggleButton(Vector2 pos, Texture2D icon, ref bool boolValue, string boolName)
+    {
+        var rect = new Rect(pos, iconSize.Vector2);
+        if (boolValue)
+        {
+            if (GUI.Button(rect, new GUIContent(icon, boolName + ": true")))
+                boolValue = false;
+        }
+        else
+        {
+            GUI.color = Color.white.ChangeAlpha(0.5f);
+            if (GUI.Button(rect, new GUIContent(icon, boolName + ": false")))
+                boolValue = true;
+        }
+
+        GUI.color = guiColors.Color;
+
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeButton(Vector2 pos, string text, Action onClicked, Color? color = null)
+    {
+        var rect = new Rect(pos, iconSize.Vector2);
+
+        if (color != null)
+            GUI.color = (Color)color;
+
+        if (GUI.Button(rect, text))
+            onClicked();
+
+        GUI.color = guiColors.Color;
+
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeFloatField(Vector2 pos, ref float floatVar)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        floatVar = EditorGUI.FloatField(rect, floatVar);
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeIntField(Vector2 pos, ref int intVar)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        var textStyle = new GUIStyle(GUI.skin.textField);
+        textStyle.alignment = TextAnchor.MiddleLeft;
+        intVar = EditorGUI.IntField(rect, intVar, textStyle);
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeVector2Field(Vector2 pos, ref Vector2 vector2Var, string vector2Name)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        var textStyle = new GUIStyle(GUI.skin.textField);
+        textStyle.alignment = TextAnchor.MiddleLeft;
+        vector2Var = EditorGUI.Vector2Field(rect, vector2Name, vector2Var);
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeVector3Field(Vector2 pos, ref Vector3 vector3Var, string vector2Name)
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        var textStyle = new GUIStyle(GUI.skin.textField);
+        textStyle.alignment = TextAnchor.MiddleLeft;
+        vector3Var = EditorGUI.Vector3Field(rect, vector2Name, vector3Var);
+        return (rect.width, rect.height);
+    }
+
+    (float width, float height) MakeObjectField<T>(Vector2 pos, ref T objectVar) where T : UnityEngine.Object
+    {
+        var rect = new Rect(pos, new Vector2(defaultFieldSize.Width / 2, defaultFieldSize.Height));
+        objectVar = (T)EditorGUI.ObjectField(rect, (UnityEngine.Object) objectVar, typeof(T), true);
+        return (rect.width, rect.height);
+    }
+
+    #endregion
+    
+    void OnEnable()
+    {
+        guiColors = new EditorColors(GUI.color, GUI.contentColor, GUI.backgroundColor);
+    }
+
+    void OnGUI()
+    {
+        var pos = new EditorPos(padding.left, padding.top);
+
+        MakeScrollView(
+            new(pos.Vector2, GetPaddedWindowSize()), 
+            new(Vector2.zero, GetContentSize()),
+            OnMakeContent);
+
+        void OnMakeContent()
+        {
+            /* Example:
+
+            var contentPos = new EditorPos(pos.Vector2);
+            var dataList = new List<(string,int)>() { ("first", 1), ("second", 2) };
+            foreach (var data in dataList)
+            {
+                contentPos.AddRow(MakeDataField(data, contentPos.Vector2));
+            }
+                
+            float MakeDataField((string name, int value) data, Vector2 pos)
+            {
+                var fieldPos = new EditorPos(pos);
+                fieldPos.AddColumn(MakeLabel(fieldPos.Vector2, data.name).width);
+                fieldPos.AddColumn(MakeLabel(fieldPos.Vector2, data.value.ToString(), "").width);
+                return defaultFieldSize.Height;
+            }
+
+            */
+        }
+    }
+
+    Vector2 GetContentSize()
+    {
+        Vector2 size = default;
+        // Calculate the size of the scroll view content based on your data
+        return size;
+    }
+}
+#ROOTNAMESPACEEND#

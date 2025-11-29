@@ -1,0 +1,30 @@
+using System;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+#ROOTNAMESPACEBEGIN#
+    [CustomPropertyDrawer(typeof(#TARGETTYPE#))]
+    public class #SCRIPTNAME# : PropertyDrawer
+    {
+        public override VisualElement CreatePropertyGUI(SerializedProperty property)
+        {
+            // DEFAULT FIELD & BUTTON
+            // var container = new VisualElement();
+            // var defaultField = new PropertyField(property);
+            // container.Add(defaultField);
+            // container.Add(new Button(() => {}) { text = "Button" });
+            // return container;
+
+            // CUSTOM UXML & USS
+            // var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("#FOLDERPATH#/#SCRIPTNAME#.uxml");
+            // var container = visualTree.CloneTree();
+            // var style = AssetDatabase.LoadAssetAtPath<StyleSheet>("#FOLDERPATH#/#SCRIPTNAME#.uss");
+            // container.styleSheets.Add(style);
+            // container.Bind(property.serializedObject);
+            // container.bindingPath = property.propertyPath;
+            // return container;
+        }
+    }
+#ROOTNAMESPACEEND#

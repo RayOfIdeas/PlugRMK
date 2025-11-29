@@ -1,0 +1,48 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+#ROOTNAMESPACEBEGIN#
+    [CustomEditor(typeof(#TARGETTYPE#))]
+    public class #SCRIPTNAME# : Editor
+    {
+        [SerializeField]
+        VisualTreeAsset visualTreeAsset;
+        #TARGETTYPE# targetScript;
+        VisualElement root;
+
+        public override VisualElement CreateInspectorGUI()
+        {
+            root = new VisualElement();
+            targetScript = target as #TARGETTYPE#;
+
+            var tabView = new TabView();
+            tabView.Add(MakeMainTab());
+            tabView.Add(MakeDefaultInspectorTab());
+            root.Add(tabView);
+
+            return root;
+        }
+
+        Tab MakeMainTab()
+        {
+            var mainTab = new Tab("Main");
+            var mainVE = visualTreeAsset.Instantiate();
+            mainTab.Add(mainVE);
+            return mainTab;
+        }
+
+        Tab MakeDefaultInspectorTab()
+        {
+            var defaultInspector = new VisualElement() { name = "defaultInspector" };
+            InspectorElement.FillDefaultInspector(defaultInspector, serializedObject, this);
+            var defaultInspectorTab = new Tab("Default");
+            defaultInspectorTab.Add(defaultInspector);
+            return defaultInspectorTab;
+        }
+    }
+#ROOTNAMESPACEEND#
