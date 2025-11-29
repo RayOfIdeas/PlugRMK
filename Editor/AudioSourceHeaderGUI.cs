@@ -37,15 +37,15 @@ namespace PlugRMK.UnityUti.EditorUti
             GUILayout.BeginHorizontal();
             GUILayout.Space(40);
 
-            GUILayout.Label(EditorGUIUtility.IconContent("d_AudioSource Icon"), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight));
+            GUILayout.Label(EditorGUIUtility.IconContent(EditorIconsName.audiosource_icon), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight));
             if (audioSource.isPlaying)
             {
-                if (GUILayout.Button(EditorGUIUtility.IconContent("d_StopButton"), GUILayout.Width(64)))
+                if (GUILayout.Button(EditorGUIUtility.IconContent(EditorIconsName.stopbutton), GUILayout.Width(64)))
                     audioSource.Stop();
             }
             else
             {
-                if (GUILayout.Button(EditorGUIUtility.IconContent("d_PlayButton"), GUILayout.Width(64)))
+                if (GUILayout.Button(EditorGUIUtility.IconContent(EditorIconsName.playbutton), GUILayout.Width(64)))
                     audioSource.Play();
             }
 
