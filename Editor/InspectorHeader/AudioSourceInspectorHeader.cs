@@ -1,10 +1,11 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using static PlugRMK.UnityUti.EditorUti.InspectorHeaderDrawer;
 
 namespace PlugRMK.UnityUti.EditorUti
 {
-    public static class AudioSourceHeaderGUI
+    public static class AudioSourceInspectorHeader
     {
         const string MENU_PLAY = "CONTEXT/AudioSource/Play";
 
@@ -22,34 +23,25 @@ namespace PlugRMK.UnityUti.EditorUti
             return audioSouce != null && audioSouce.clip != null;
         }
 
-        [InitializeOnLoadMethod]
-        static void HeaderButton()
-        {
-            Editor.finishedDefaultHeaderGUI += OnFinishedHeaderGUI;
-        }
-
-        static void OnFinishedHeaderGUI(Editor editor)
+        [InspectorHeaderButton]
+        public static void DrawHeaderButton(Editor editor)
         {
             if (editor.target is not GameObject gameObject ||
                 !gameObject.TryGetComponent(out AudioSource audioSource))
                 return;
 
             GUILayout.BeginHorizontal();
-            GUILayout.Space(40);
-
-            GUILayout.Label(EditorGUIUtility.IconContent(EditorIconsName.audiosource_icon), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight));
+            DrawLabel(EditorIconsName.audiosource_icon);
             if (audioSource.isPlaying)
             {
-                if (GUILayout.Button(EditorGUIUtility.IconContent(EditorIconsName.stopbutton), GUILayout.Width(64)))
+                if (DrawButton(EditorIconsName.stopbutton))
                     audioSource.Stop();
             }
             else
             {
-                if (GUILayout.Button(EditorGUIUtility.IconContent(EditorIconsName.playbutton), GUILayout.Width(64)))
+                if (DrawButton(EditorIconsName.playbutton))
                     audioSource.Play();
             }
-
-            GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
     }
