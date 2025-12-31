@@ -34,7 +34,7 @@ A Unity package containing editor tools and runtime utilities designed to enhanc
 ### Via Unity Package Manager (Git URL)
 1. Open Unity Package Manager
 2. Click the `+` button and select "Add package from git URL"
-3. Enter: `https://github.com/your-repo/PlugRMK.git`
+3. Enter: `https://github.com/RayOfIdeas/PlugRMK.git`
 
 ### Via Unity Package Manager (Local)
 1. Download or clone this repository
@@ -171,14 +171,6 @@ PlugRMK/
 
 - **Unity Version:** 6000.2 or later (should work on 2019 above too)
 - **Dependencies:** None
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 License
 
