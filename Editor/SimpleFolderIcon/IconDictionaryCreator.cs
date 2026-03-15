@@ -6,11 +6,11 @@ namespace SimpleFolderIcon.Editor
 {
     public class IconDictionaryCreator : AssetPostprocessor
     {
-        private const string IconsPath = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
-        private const string IconsPathWithSlash = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons/";
+        const string IconsPath = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
+        const string IconsPathWithSlash = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons/";
         internal static Dictionary<string, Texture> IconDictionary;
 
-        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             if (!ContainsIconAsset(importedAssets) &&
                 !ContainsIconAsset(deletedAssets) &&
@@ -23,7 +23,7 @@ namespace SimpleFolderIcon.Editor
             BuildDictionary();
         }
 
-        private static bool ContainsIconAsset(string[] assets)
+        static bool ContainsIconAsset(string[] assets)
         {
             foreach (string str in assets)
                 if (!string.IsNullOrEmpty(str) && str.StartsWith(IconsPathWithSlash))
@@ -33,8 +33,13 @@ namespace SimpleFolderIcon.Editor
 
         internal static void BuildDictionary()
         {
-            var dictionary = new Dictionary<string, Texture>();
+            if (!Directory.Exists(IconsPath))
+            {
+                Debug.LogWarning($"Directory <color=yellow>{IconsPath}</color> does not exist. Folder icons will not be available.");
+                return;
+            }
 
+            var dictionary = new Dictionary<string, Texture>();
             var dir = new DirectoryInfo(IconsPath);
             FileInfo[] info = dir.GetFiles("*.png");
             foreach(FileInfo f in info)

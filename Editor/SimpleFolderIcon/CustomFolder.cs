@@ -10,7 +10,8 @@ namespace SimpleFolderIcon.Editor
         static CustomFolder()
         {
             IconDictionaryCreator.BuildDictionary();
-            EditorApplication.projectWindowItemOnGUI += DrawFolderIcon;
+            if (IconDictionaryCreator.IconDictionary != null)
+                EditorApplication.projectWindowItemOnGUI += DrawFolderIcon;
         }
 
         static void DrawFolderIcon(string guid, Rect rect)
