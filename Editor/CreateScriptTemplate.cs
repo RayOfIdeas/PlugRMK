@@ -12,31 +12,31 @@ namespace PlugRMK.UnityUti.EditorUti
         const string TEMPLATES = "ScriptTemplates";
         const int PRIORITY_INDEX = 0;
 
-        [MenuItem("Assets/Create/New Code/MonoBehaviour", priority = PRIORITY_INDEX, secondaryPriority = 0)]
+        [MenuItem("Assets/Create/Scripting/MonoBehaviour Custom", priority = PRIORITY_INDEX, secondaryPriority = 0)]
         public static void CreateMonoBehaviour() => CreateScriptFromTemplateName("MonoBehaviour");
 
-        [MenuItem("Assets/Create/New Code/ScriptableObject", priority = PRIORITY_INDEX, secondaryPriority = 1)]
+        [MenuItem("Assets/Create/Scripting/ScriptableObject Custom", priority = PRIORITY_INDEX, secondaryPriority = 1)]
         public static void CreateScriptableObject() => CreateScriptFromTemplateName("ScriptableObject");
 
-        [MenuItem("Assets/Create/New Code/Static Class", priority = PRIORITY_INDEX, secondaryPriority = 2)]
+        [MenuItem("Assets/Create/Scripting/Static Class", priority = PRIORITY_INDEX, secondaryPriority = 2)]
         public static void CreateStaticClass() => CreateScriptFromTemplateName("StaticClass");
 
-        [MenuItem("Assets/Create/New Code/Interface", priority = PRIORITY_INDEX, secondaryPriority = 3)]
+        [MenuItem("Assets/Create/Scripting/Interface", priority = PRIORITY_INDEX, secondaryPriority = 3)]
         public static void CreateInterface() => CreateScriptFromTemplateName("Interface");
 
-        [MenuItem("Assets/Create/New Code/UGUI Editor Window", priority = PRIORITY_INDEX, secondaryPriority = 4)]
+        [MenuItem("Assets/Create/Scripting/UGUI Editor Window", priority = PRIORITY_INDEX, secondaryPriority = 4)]
         public static void CreateUGUIEditorWindow() => CreateScriptFromTemplateName("UGUIEditorWindow");
-        
-        [MenuItem("Assets/Create/New Code/UI Toolkit Editor Window", priority = PRIORITY_INDEX, secondaryPriority = 5)]
+
+        [MenuItem("Assets/Create/Scripting/UI Toolkit Editor Window", priority = PRIORITY_INDEX, secondaryPriority = 5)]
         public static void CreateUIToolkitEditorWindow() => CreateScriptFromTemplateName("UIToolkit_EditorWindow");
 
-        [MenuItem("Assets/Create/New Code/UI Toolkit Inspector", priority = PRIORITY_INDEX, secondaryPriority = 6)]
+        [MenuItem("Assets/Create/Scripting/UI Toolkit Inspector", priority = PRIORITY_INDEX, secondaryPriority = 6)]
         public static void CreateUIToolkitInspector() => CreateScriptFromTemplateName("UIToolkit_Inspector");
 
-        [MenuItem("Assets/Create/New Code/UI Toolkit Property Drawer", priority = PRIORITY_INDEX, secondaryPriority = 7)]
+        [MenuItem("Assets/Create/Scripting/UI Toolkit Property Drawer", priority = PRIORITY_INDEX, secondaryPriority = 7)]
         public static void CreateUIToolkitPropertyDrawer() => CreateScriptFromTemplateName("UIToolkit_PropertyDrawer");
 
-        [MenuItem("Assets/Create/New Code/Editor Preference", priority = PRIORITY_INDEX, secondaryPriority = 8)]
+        [MenuItem("Assets/Create/Scripting/Editor Preference", priority = PRIORITY_INDEX, secondaryPriority = 8)]
         public static void CreateEditorPreference() => CreateScriptFromTemplateName("EditorPreference");
 
         public static void CreateScriptFromTemplateName(string templateName)
