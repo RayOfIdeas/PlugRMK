@@ -7,7 +7,7 @@ namespace SimpleFolderIcon.Editor
     public class IconDictionaryCreator : AssetPostprocessor
     {
         private const string IconsPath = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons";
-        private const string IconsPathWithSlash = IconsPath + "/";
+        private const string IconsPathWithSlash = "Packages/com.rayofideas.plugrmk/Editor/SimpleFolderIcon/Icons/";
         internal static Dictionary<string, Texture> IconDictionary;
 
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
