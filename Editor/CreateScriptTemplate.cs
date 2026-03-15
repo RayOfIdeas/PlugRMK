@@ -42,8 +42,8 @@ namespace PlugRMK.UnityUti.EditorUti
         public static void CreateScriptFromTemplateName(string templateName)
         {
             var parentPath = GetParentPath(nameof(CreateScriptTemplate), templateName);
-            var templatePath = parentPath + "/" + TEMPLATES + "/" + templateName + ".cs.txt";
-            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "New" + templateName + ".cs");
+            var templatePath = $"{parentPath}/{TEMPLATES}/{templateName}.cs.txt";
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, $"New{templateName}.cs");
         }
 
         public static string GetParentPath(string assetName, string childFileName)
@@ -53,7 +53,7 @@ namespace PlugRMK.UnityUti.EditorUti
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var folderPath = path[..(path.Length - "/".Length - assetName.Length - ".cs".Length)];
-                var templatePath = folderPath + "/" + TEMPLATES + "/" + childFileName + ".cs.txt";
+                var templatePath = $"{folderPath}/{TEMPLATES}/{childFileName}.cs.txt";
                 if (File.Exists(templatePath))
                     return folderPath;
             }
