@@ -49,7 +49,7 @@ namespace PlugRMK.UnityUti.Hext
 
         static void OnHierarchyWindow(int instanceID, Rect selectionRect)
         {
-            if (EditorUtility.InstanceIDToObject(instanceID) is GameObject go)
+            if (EditorUtility.EntityIdToObject(instanceID) is GameObject go)
             {
                 if (go.TryGetComponent<HierarchyExtGO>(out var hextGO))
                     Stylize(instanceID, selectionRect, go.name, hextGO.style);
@@ -57,7 +57,7 @@ namespace PlugRMK.UnityUti.Hext
                     Stylize(instanceID, selectionRect, go.name, style);
             }
         }
-       
+
         #endregion
 
         #region [Methods: Stylize]
@@ -118,7 +118,7 @@ namespace PlugRMK.UnityUti.Hext
 
         static (bool isSelected, bool isHovered, bool isWindowFocused) GetSelectionState(int instanceID, Rect selectionRect)
         {
-            var isSelected = Selection.instanceIDs.Contains(instanceID);
+            var isSelected = Selection.entityIds.Contains(instanceID);
             var isHovered = selectionRect.Contains(Event.current.mousePosition);
             var isWindowFocused = _hierarchyHasFocus;
             return (isSelected, isHovered, isWindowFocused);
