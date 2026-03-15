@@ -4,7 +4,7 @@ namespace PlugRMK.UnityUti.EditorUti
 {
     public static class EditorIconsPath
     {
-        public const string FOLDER = "Packages/PlugRMK/UnityUti/Editor/Editor Default Resources/EditorIcons/";
+        public const string FOLDER = "Packages/com.rayofideas.plugrmk/UnityUti/Editor/Editor Default Resources/EditorIcons/";
         public const string PREFIX = "editorIcon_";
         public const string EXTENSION = ".png";
 
