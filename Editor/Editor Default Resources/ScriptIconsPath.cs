@@ -5,7 +5,7 @@ namespace PlugRMK.UnityUti.EditorUti
 {
     public static class ScriptIconsPath
     {
-        public const string FOLDER = "Packages/PlugRMK/UnityUti/Editor/Editor Default Resources/ScriptIcons/";
+        public const string FOLDER = "Packages/com.rayofideas.plugrmk/UnityUti/Editor/Editor Default Resources/ScriptIcons/";
         public const string PREFIX = "scriptIcon_";
         public const string EXTENSION = ".png";
 
