@@ -13,9 +13,9 @@ namespace PlugRMK.GenericUti
             string numberString;
             
             if (number >= MILLION)
-                numberString = ((float)number/MILLION).ToString("f1")+"M";
+                numberString = $"{((float)number/MILLION).ToString("f1")}M";
             else if (number >= THOUSAND)
-                numberString = ((float)number/THOUSAND).ToString("f1")+"K";
+                numberString = $"{((float)number/THOUSAND).ToString("f1")}K";
             else 
                 numberString = number.ToString("f1");
 
@@ -30,9 +30,9 @@ namespace PlugRMK.GenericUti
             string numberString;
 
             if (number >= MILLION)
-                numberString = (number/MILLION).ToString("f1")+"M";
+                numberString = $"{(number/MILLION).ToString("f1")}M";
             else if (number >= THOUSAND)
-                numberString = (number/THOUSAND).ToString("f1")+"K";
+                numberString = $"{(number/THOUSAND).ToString("f1")}K";
             else 
                 numberString = number.ToString("f1");
 
