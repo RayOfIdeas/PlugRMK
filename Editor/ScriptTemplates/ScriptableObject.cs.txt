@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
     #ROOTNAMESPACEBEGIN#
-[CreateAssetMenu(fileName ="NewSO", menuName ="SO/")]
-
+[CreateAssetMenu(fileName ="#SCRIPTNAME#", menuName ="Scriptable Objects/#SCRIPTNAME#")]
 public class #SCRIPTNAME# : ScriptableObject
 {
     [SerializeField]
-    string soName;
+    string displayName;
 }
 #ROOTNAMESPACEEND#
