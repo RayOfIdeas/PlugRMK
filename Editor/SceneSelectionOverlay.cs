@@ -45,7 +45,10 @@ namespace PlugRMK.UnityUti.EditorUti
                 {
                     var path = AssetDatabase.GUIDToAssetPath(sceneWithLabelGuids[i]);
                     var name = Path.GetFileNameWithoutExtension(path);
-                    menu.AddItem(new GUIContent(name), string.Compare(currentScene.name, name) == 0, () => OpenScene(currentScene, path));
+                    menu.AddItem(
+                        new GUIContent(name), 
+                        string.Compare(currentScene.name, name) == 0, 
+                        () => OpenScene(currentScene, path));
                 }
 
                 var sceneGuids = AssetDatabase.FindAssets("t:scene", null).ToList();
@@ -55,7 +58,10 @@ namespace PlugRMK.UnityUti.EditorUti
                         continue;
                     var path = AssetDatabase.GUIDToAssetPath(sceneGuids[i]);
                     var name = Path.GetFileNameWithoutExtension(path);
-                    menu.AddItem(new GUIContent("Other/"+name), string.Compare(currentScene.name,name)==0, () => OpenScene(currentScene, path));
+                    menu.AddItem(
+                        new GUIContent($"Other/{name}"), 
+                        string.Compare(currentScene.name,name) == 0, 
+                        () => OpenScene(currentScene, path));
                 }
                 menu.ShowAsContext();
             }
