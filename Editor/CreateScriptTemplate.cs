@@ -9,7 +9,7 @@ namespace PlugRMK.UnityUti.EditorUti
     public static class CreateScriptTemplate
     {
         const string TEMPLATES = "ScriptTemplates";
-        const int PRIORITY_INDEX = 0;
+        const int PRIORITY_INDEX = -100;
 
         [MenuItem("Assets/Create/Scripting/MonoBehaviour Custom", priority = PRIORITY_INDEX, secondaryPriority = 0)]
         public static void CreateMonoBehaviour() => CreateScriptFromTemplateName("MonoBehaviour");
