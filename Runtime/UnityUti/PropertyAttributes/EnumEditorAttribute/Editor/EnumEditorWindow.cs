@@ -281,7 +281,7 @@ namespace PlugRMK.UnityUti.EditorUti
             _enumMembers = new();
             var names = Enum.GetNames(enumType);
             var values = Enum.GetValues(enumType);
-            for (int i = 0; i < names.Length; i++)
+            for (var i = 0; i < names.Length; i++)
             {
                 _enumMembers.Add(new EnumMember
                 {
@@ -335,7 +335,7 @@ namespace PlugRMK.UnityUti.EditorUti
             var memberIndent = enumIndent + "\t";
 
             // Replace the enum body
-            var bodyPattern = $@"(\benum\s+{Regex.Escape(_enumType.Name)}\s*(?::\s*\w+\s*)?){{[^}}]*}}";
+            var bodyPattern = $@"(\benum\s+{Regex.Escape(_enumType.Name)}(?:\s*:\s*\w+)?)\s*{{[^}}]*}}";
             var newSource = Regex.Replace(source, bodyPattern,
                 $"$1\n{enumIndent}{{\n{BuildEnumBody(memberIndent)}{enumIndent}}}",
                 RegexOptions.Singleline);
