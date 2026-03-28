@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -15,7 +16,9 @@ namespace PlugRMK.UnityUti.EditorUti
         class EnumMember
         {
             public string Name;
+            public string OriginalName;
             public int Value;
+            public int OriginalValue;
         }
 
         [SerializeField]
@@ -26,6 +29,7 @@ namespace PlugRMK.UnityUti.EditorUti
         ScrollView _scrollView;
         Button _saveButton;
         bool _isDirty;
+        bool _changeReferencingScripts = true;
 
         #region [Methods: Window]
 
@@ -78,6 +82,7 @@ namespace PlugRMK.UnityUti.EditorUti
             root.Add(CreateAddMemberButton());
             root.Add(new VisualElement() { style = { flexGrow = 1 } });
             root.Add(CreateSaveButton());
+            root.Add(CreateSettingsFoldout());
         }
 
         VisualElement CreateEnumFileObjectField()
@@ -230,8 +235,27 @@ namespace PlugRMK.UnityUti.EditorUti
                     flexShrink = 0,
                 }
             };
+            _saveButton.SetEnabled(false);
 
             return _saveButton;
+        }
+
+        VisualElement CreateSettingsFoldout()
+        {
+            var foldout = new Foldout
+            {
+                text = "Settings",
+                value = false
+            };
+
+            var toggle = new Toggle("Change referencing scripts")
+            {
+                value = _changeReferencingScripts
+            };
+            toggle.RegisterValueChangedCallback(evt => _changeReferencingScripts = evt.newValue);
+            foldout.Add(toggle);
+
+            return foldout;
         }
 
         #endregion
@@ -245,14 +269,14 @@ namespace PlugRMK.UnityUti.EditorUti
 
             _isDirty = true;
             if (_saveButton != null)
-                _saveButton.style.backgroundColor = Color.seaGreen;
+                _saveButton.SetEnabled(true);
         }
 
         void ClearDirty()
         {
             _isDirty = false;
             if (_saveButton != null)
-                _saveButton.style.backgroundColor = StyleKeyword.Null;
+                _saveButton.SetEnabled(false);
         }
 
         #endregion
@@ -286,7 +310,9 @@ namespace PlugRMK.UnityUti.EditorUti
                 _enumMembers.Add(new EnumMember
                 {
                     Name = names[i],
-                    Value = (int)values.GetValue(i)
+                    OriginalName = names[i],
+                    Value = (int)values.GetValue(i),
+                    OriginalValue = (int)values.GetValue(i)
                 });
             }
             _enumFileObject = FindEnumFileObject(enumType);
@@ -346,9 +372,25 @@ namespace PlugRMK.UnityUti.EditorUti
                 return;
             }
 
-            File.WriteAllText(path, newSource);
-            AssetDatabase.Refresh();
-            ClearDirty();
+            var diffs = GetMemberDiffs();
+            if (_changeReferencingScripts)
+            {
+                EnumDiffWindow.Open(_enumType, _enumFileObject, diffs, () =>
+                {
+                    File.WriteAllText(path, newSource);
+                    RenameReferencesInAssets(diffs);
+                    AssetDatabase.Refresh();
+                    ResetOriginalNames();
+                    ClearDirty();
+                });
+            }
+            else
+            {
+                File.WriteAllText(path, newSource);
+                AssetDatabase.Refresh();
+                ResetOriginalNames();
+                ClearDirty();
+            }
         }
 
         string BuildEnumBody(string memberIndent)
@@ -357,6 +399,49 @@ namespace PlugRMK.UnityUti.EditorUti
             foreach (var member in _enumMembers)
                 sb.AppendLine($"{memberIndent}{member.Name} = {member.Value},");
             return sb.ToString();
+        }
+
+        List<EnumDiffWindow.MemberDiff> GetMemberDiffs() =>
+            _enumMembers.Select(m => new EnumDiffWindow.MemberDiff
+            {
+                OriginalName = m.OriginalName,
+                OriginalValue = m.OriginalValue,
+                Name = m.Name,
+                Value = m.Value
+            }).ToList();
+
+        void ResetOriginalNames()
+        {
+            foreach (var member in _enumMembers)
+            {
+                member.OriginalName = member.Name;
+                member.OriginalValue = member.Value;
+            }
+        }
+
+        void RenameReferencesInAssets(List<EnumDiffWindow.MemberDiff> diffs)
+        {
+            var renames = diffs.Where(d => !d.IsNew && d.IsNameChanged).ToList();
+            if (renames.Count == 0)
+                return;
+
+            var savedFilePath = Path.GetFullPath(AssetDatabase.GetAssetPath(_enumFileObject));
+            var csFiles = Directory.GetFiles(Application.dataPath, "*.cs", SearchOption.AllDirectories);
+            foreach (var file in csFiles)
+            {
+                if (string.Equals(Path.GetFullPath(file), savedFilePath, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                var content = File.ReadAllText(file);
+                var modified = content;
+                foreach (var rename in renames)
+                {
+                    var pattern = $@"\b{Regex.Escape(_enumType.Name)}\.{Regex.Escape(rename.OriginalName)}\b";
+                    modified = Regex.Replace(modified, pattern, $"{_enumType.Name}.{rename.Name}");
+                }
+                if (modified != content)
+                    File.WriteAllText(file, modified);
+            }
         }
 
         #endregion
