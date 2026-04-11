@@ -29,7 +29,9 @@ namespace PlugRMK.UnityUti.EditorUti
             _property = property;
             _derivedTypes = GetDerivedTypeNames(fieldInfo.FieldType);
             var fullTypename = ExcludeAssemblyName(property.managedReferenceFullTypename);
-            var currentTypeIndex = _derivedTypes.FindIndex(t => t.type.FullName == fullTypename);
+            var currentTypeIndex = string.IsNullOrEmpty(fullTypename)
+                ? 0
+                : _derivedTypes.FindIndex(t => t.type?.FullName == fullTypename);
 
             _mainVisualElement = new VisualElement();
             RecreateMainVisualElement(currentTypeIndex);
@@ -40,7 +42,11 @@ namespace PlugRMK.UnityUti.EditorUti
         {
             _mainVisualElement.Clear();
             var dropdown = CreateDropdown(currentTypeIndex);
-            _mainVisualElement.Add(CreateFoldout(dropdown));
+
+            if (HasVisibleChildren(_property))
+                _mainVisualElement.Add(CreateFoldout(dropdown));
+            else
+                _mainVisualElement.Add(CreateLabelRow(dropdown));
         }
 
         DropdownField CreateDropdown(int currentTypeIndex)
@@ -96,24 +102,47 @@ namespace PlugRMK.UnityUti.EditorUti
             return foldout;
         }
 
+        VisualElement CreateLabelRow(DropdownField dropdown)
+        {
+            var row = new VisualElement
+            {
+                style = { flexDirection = FlexDirection.Row, alignItems = Align.Center }
+            };
+            var label = new Label(_property.displayName);
+            label.AddToClassList("unity-base-field__label");
+            row.Add(label);
+            row.Add(dropdown);
+            return row;
+        }
+
         #endregion
 
         #region [Methods: Callbacks and Logic]
 
         static List<(Type type, string name)> GetDerivedTypeNames(Type type)
         {
-            return TypeCache.GetTypesDerivedFrom(type)
+            var types = TypeCache.GetTypesDerivedFrom(type)
                 .Where(t => !t.IsAbstract)
                 .Select(t => (t, t.FullName))
                 .ToList();
+            types.Insert(0, (null, "Null"));
+            return types;
+        }
+
+        static bool HasVisibleChildren(SerializedProperty property)
+        {
+            var iterator = property.Copy();
+            var end = iterator.GetEndProperty();
+            return iterator.NextVisible(true) && !SerializedProperty.EqualContents(iterator, end);
         }
 
         static string ExcludeAssemblyName(string managedReferenceFullTypename)
         {
             var spaceIndex = managedReferenceFullTypename.IndexOf(' ');
-            return spaceIndex >= 0
+            var typeName = spaceIndex >= 0
                 ? managedReferenceFullTypename.Substring(spaceIndex + 1)
                 : managedReferenceFullTypename;
+            return typeName.Replace('/', '+');
         }
 
         void Dropdown_OnValueChanged(ChangeEvent<string> evt)
@@ -124,7 +153,8 @@ namespace PlugRMK.UnityUti.EditorUti
             var currentTypeIndex = _derivedTypes.FindIndex(t => t.name == evt.newValue);
             if (currentTypeIndex >= 0)
             {
-                _property.managedReferenceValue = Activator.CreateInstance(_derivedTypes[currentTypeIndex].type);
+                var selectedType = _derivedTypes[currentTypeIndex].type;
+                _property.managedReferenceValue = selectedType != null ? Activator.CreateInstance(selectedType) : null;
                 _property.serializedObject.ApplyModifiedProperties();
                 RecreateMainVisualElement(currentTypeIndex);
             }
@@ -159,6 +189,102 @@ namespace PlugRMK.UnityUti.EditorUti
             container.Add(waringImage);
             container.Add(propertyField);
             return container;
+        }
+
+        #endregion
+
+        #region [IMGUI]
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            if (property.propertyType != SerializedPropertyType.ManagedReference)
+                return EditorGUIUtility.singleLineHeight;
+
+            var height = EditorGUIUtility.singleLineHeight;
+            if (property.isExpanded && HasVisibleChildren(property))
+            {
+                var iterator = property.Copy();
+                var end = iterator.GetEndProperty();
+                iterator.NextVisible(true);
+                while (!SerializedProperty.EqualContents(iterator, end))
+                {
+                    height += EditorGUI.GetPropertyHeight(iterator, true) + EditorGUIUtility.standardVerticalSpacing;
+                    if (!iterator.NextVisible(false))
+                        break;
+                }
+            }
+
+            return height;
+        }
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (property.propertyType != SerializedPropertyType.ManagedReference)
+            {
+                DrawIMGUIErrorField(position, property, label);
+                return;
+            }
+
+            DrawIMGUIMainField(position, property, label);
+        }
+
+        void DrawIMGUIMainField(Rect position, SerializedProperty property, GUIContent label)
+        {
+            _derivedTypes ??= GetDerivedTypeNames(fieldInfo.FieldType);
+
+            var fullTypename = ExcludeAssemblyName(property.managedReferenceFullTypename);
+            var currentTypeIndex = string.IsNullOrEmpty(fullTypename)
+                ? 0
+                : _derivedTypes.FindIndex(t => t.type?.FullName == fullTypename);
+            var hasChildren = HasVisibleChildren(property);
+
+            var labelRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+            var dropdownRect = new Rect(position.x + EditorGUIUtility.labelWidth, position.y, position.width - EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+
+            if (hasChildren)
+                property.isExpanded = EditorGUI.Foldout(labelRect, property.isExpanded, label, true);
+            else
+                EditorGUI.LabelField(labelRect, label);
+
+            EditorGUI.BeginChangeCheck();
+            var newIndex = EditorGUI.Popup(dropdownRect, currentTypeIndex, _derivedTypes.Select(t => t.name).ToArray());
+            if (EditorGUI.EndChangeCheck() && newIndex != currentTypeIndex && newIndex >= 0)
+            {
+                var selectedType = _derivedTypes[newIndex].type;
+                property.managedReferenceValue = selectedType != null ? Activator.CreateInstance(selectedType) : null;
+                property.serializedObject.ApplyModifiedProperties();
+            }
+
+            if (!hasChildren || !property.isExpanded)
+                return;
+
+            EditorGUI.indentLevel++;
+            var y = position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            var iterator = property.Copy();
+            var end = iterator.GetEndProperty();
+            iterator.NextVisible(true);
+            while (!SerializedProperty.EqualContents(iterator, end))
+            {
+                var h = EditorGUI.GetPropertyHeight(iterator, true);
+                var childRect = new Rect(position.x, y, position.width, h);
+                EditorGUI.PropertyField(childRect, iterator, true);
+                y += h + EditorGUIUtility.standardVerticalSpacing;
+                if (!iterator.NextVisible(false))
+                    break;
+            }
+            EditorGUI.indentLevel--;
+        }
+
+        void DrawIMGUIErrorField(Rect position, SerializedProperty property, GUIContent label)
+        {
+            var warningContent = new GUIContent(
+                EditorGUIUtility.IconContent("Warning").image,
+                "Property must be a managed reference of a type with derived types");
+            var iconRect = new Rect(position.x, position.y, 20, EditorGUIUtility.singleLineHeight);
+            var propertyRect = new Rect(position.x + 20, position.y, position.width - 20, position.height);
+
+            GUI.Label(iconRect, warningContent);
+            EditorGUI.PropertyField(propertyRect, property, label, true);
         }
 
         #endregion
