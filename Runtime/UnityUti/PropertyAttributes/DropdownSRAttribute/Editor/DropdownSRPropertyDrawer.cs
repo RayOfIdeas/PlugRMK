@@ -27,7 +27,7 @@ namespace PlugRMK.UnityUti.EditorUti
         VisualElement CreateMainVisualElement(SerializedProperty property)
         {
             _property = property;
-            _derivedTypes = GetDerivedTypeNames(fieldInfo.FieldType);
+            _derivedTypes = GetDerivedTypeNames(GetElementType(fieldInfo.FieldType));
             var fullTypename = ExcludeAssemblyName(property.managedReferenceFullTypename);
             var currentTypeIndex = string.IsNullOrEmpty(fullTypename)
                 ? 0
@@ -119,12 +119,31 @@ namespace PlugRMK.UnityUti.EditorUti
 
         #region [Methods: Callbacks and Logic]
 
+        static Type GetElementType(Type type)
+        {
+            if (type.IsArray)
+                return type.GetElementType();
+
+            if (type.IsGenericType)
+            {
+                var genericDef = type.GetGenericTypeDefinition();
+                if (genericDef == typeof(List<>))
+                    return type.GetGenericArguments()[0];
+            }
+
+            return type;
+        }
+
         static List<(Type type, string name)> GetDerivedTypeNames(Type type)
         {
             var types = TypeCache.GetTypesDerivedFrom(type)
                 .Where(t => !t.IsAbstract)
                 .Select(t => (t, t.FullName))
                 .ToList();
+
+            if (!type.IsAbstract)
+                types.Insert(0, (type, type.FullName));
+
             types.Insert(0, (null, "Null"));
             return types;
         }
@@ -230,7 +249,7 @@ namespace PlugRMK.UnityUti.EditorUti
 
         void DrawIMGUIMainField(Rect position, SerializedProperty property, GUIContent label)
         {
-            _derivedTypes ??= GetDerivedTypeNames(fieldInfo.FieldType);
+            _derivedTypes ??= GetDerivedTypeNames(GetElementType(fieldInfo.FieldType));
 
             var fullTypename = ExcludeAssemblyName(property.managedReferenceFullTypename);
             var currentTypeIndex = string.IsNullOrEmpty(fullTypename)
