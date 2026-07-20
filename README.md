@@ -198,7 +198,8 @@ PlugRMK/
 
 ## 📋 Requirements
 
-- **Unity Version:** 6000.5.3f1 or later (should work on 2019 above too)
+- **Unity Version:** 6000.2 or later (should work on 2019 above too)
+  - `HierarchyExt` uses `EditorApplication.hierarchyWindowItemByEntityIdOnGUI` on Unity 6000.5+ and falls back to the legacy `hierarchyWindowItemOnGUI` API on older versions, so both are supported from the same codebase.
 - **Dependencies:** None
 
 ## 📝 License

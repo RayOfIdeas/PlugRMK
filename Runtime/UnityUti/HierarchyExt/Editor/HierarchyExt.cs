@@ -27,7 +27,11 @@ namespace PlugRMK.UnityUti.Hext
 
         static HierarchyExt()
         {
+#if UNITY_6000_5_OR_NEWER
             EditorApplication.hierarchyWindowItemByEntityIdOnGUI += OnHierarchyWindow;
+#else
+            EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindow;
+#endif
             EditorApplication.update += OnEditorUpdate;
         }
 
@@ -47,7 +51,11 @@ namespace PlugRMK.UnityUti.Hext
                 .Any();
         }
 
+#if UNITY_6000_5_OR_NEWER
         static void OnHierarchyWindow(EntityId entityId, Rect selectionRect)
+#else
+        static void OnHierarchyWindow(int entityId, Rect selectionRect)
+#endif
         {
             if (EditorUtility.EntityIdToObject(entityId) is GameObject go)
             {
@@ -62,7 +70,11 @@ namespace PlugRMK.UnityUti.Hext
 
         #region [Methods: Stylize]
 
+#if UNITY_6000_5_OR_NEWER
         static void Stylize(EntityId entityId, Rect selectionRect, string goName, HierarchyExtStyle style)
+#else
+        static void Stylize(int entityId, Rect selectionRect, string goName, HierarchyExtStyle style)
+#endif
         {
             DrawRectAsBG(entityId, selectionRect, style);
             DrawLabelName(selectionRect, goName, style);
@@ -92,7 +104,11 @@ namespace PlugRMK.UnityUti.Hext
 
         #region [Methods: Draw Rect as Background]
 
+#if UNITY_6000_5_OR_NEWER
         static void DrawRectAsBG(EntityId entityId, Rect selectionRect, HierarchyExtStyle style)
+#else
+        static void DrawRectAsBG(int entityId, Rect selectionRect, HierarchyExtStyle style)
+#endif
         {
             var (isSelected, isHovered, isWindowFocused) = GetSelectionState(entityId, selectionRect);
             var bgColor = style.isCustomBG
@@ -116,7 +132,11 @@ namespace PlugRMK.UnityUti.Hext
             EditorGUI.DrawRect(bgRect, bgColor);
         }
 
+#if UNITY_6000_5_OR_NEWER
         static (bool isSelected, bool isHovered, bool isWindowFocused) GetSelectionState(EntityId entityId, Rect selectionRect)
+#else
+        static (bool isSelected, bool isHovered, bool isWindowFocused) GetSelectionState(int entityId, Rect selectionRect)
+#endif
         {
             var isSelected = Selection.entityIds.Contains(entityId);
             var isHovered = selectionRect.Contains(Event.current.mousePosition);

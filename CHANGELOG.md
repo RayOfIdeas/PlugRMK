@@ -9,8 +9,7 @@
 - `DropdownIntStringAttribute` and `IntStringList` ScriptableObject for dropdown fields backed by a reusable int-string list
 
 ### Changed
-- Bumped minimum required Unity version to `6000.5.3f1`
-- Updated API usage for Unity 6.5 compatibility
+- `HierarchyExt` now targets `EditorApplication.hierarchyWindowItemByEntityIdOnGUI` on Unity 6000.5+ while falling back to the legacy `hierarchyWindowItemOnGUI` API (via `#if UNITY_6000_5_OR_NEWER`) so 6000.2-6000.4 projects keep working
 - `DropdownSRPropertyDrawer` now supports IMGUI in addition to UI Toolkit
 - Reorganized `PropertyAttributes` folder structure for consistency
 - Several runtime/editor utilities (`CreateScriptTemplate`, `SceneSelectionOverlay`, `NumberDisplayUtility`, `IconDictionaryCreator`, `EditorIconsPath`, `ScriptIconsPath`) switched to string interpolation
