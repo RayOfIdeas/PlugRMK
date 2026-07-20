@@ -27,7 +27,7 @@ namespace PlugRMK.UnityUti.Hext
 
         static HierarchyExt()
         {
-            EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindow;
+            EditorApplication.hierarchyWindowItemByEntityIdOnGUI += OnHierarchyWindow;
             EditorApplication.update += OnEditorUpdate;
         }
 
@@ -47,14 +47,14 @@ namespace PlugRMK.UnityUti.Hext
                 .Any();
         }
 
-        static void OnHierarchyWindow(int instanceID, Rect selectionRect)
+        static void OnHierarchyWindow(EntityId entityId, Rect selectionRect)
         {
-            if (EditorUtility.EntityIdToObject(instanceID) is GameObject go)
+            if (EditorUtility.EntityIdToObject(entityId) is GameObject go)
             {
                 if (go.TryGetComponent<HierarchyExtGO>(out var hextGO))
-                    Stylize(instanceID, selectionRect, go.name, hextGO.style);
+                    Stylize(entityId, selectionRect, go.name, hextGO.style);
                 else if (TryGetStyleFromName(go.name, out var style))
-                    Stylize(instanceID, selectionRect, go.name, style);
+                    Stylize(entityId, selectionRect, go.name, style);
             }
         }
 
@@ -62,9 +62,9 @@ namespace PlugRMK.UnityUti.Hext
 
         #region [Methods: Stylize]
 
-        static void Stylize(int instanceID, Rect selectionRect, string goName, HierarchyExtStyle style)
+        static void Stylize(EntityId entityId, Rect selectionRect, string goName, HierarchyExtStyle style)
         {
-            DrawRectAsBG(instanceID, selectionRect, style);
+            DrawRectAsBG(entityId, selectionRect, style);
             DrawLabelName(selectionRect, goName, style);
             DrawIcon(selectionRect, style);
         }
@@ -92,9 +92,9 @@ namespace PlugRMK.UnityUti.Hext
 
         #region [Methods: Draw Rect as Background]
 
-        static void DrawRectAsBG(int instanceID, Rect selectionRect, HierarchyExtStyle style)
+        static void DrawRectAsBG(EntityId entityId, Rect selectionRect, HierarchyExtStyle style)
         {
-            var (isSelected, isHovered, isWindowFocused) = GetSelectionState(instanceID, selectionRect);
+            var (isSelected, isHovered, isWindowFocused) = GetSelectionState(entityId, selectionRect);
             var bgColor = style.isCustomBG
                 ? style.GetBGColor(isSelected, isHovered, isWindowFocused)
                 : GetEditorBGColor(isSelected, isHovered, isWindowFocused);
@@ -116,9 +116,9 @@ namespace PlugRMK.UnityUti.Hext
             EditorGUI.DrawRect(bgRect, bgColor);
         }
 
-        static (bool isSelected, bool isHovered, bool isWindowFocused) GetSelectionState(int instanceID, Rect selectionRect)
+        static (bool isSelected, bool isHovered, bool isWindowFocused) GetSelectionState(EntityId entityId, Rect selectionRect)
         {
-            var isSelected = Selection.entityIds.Contains(instanceID);
+            var isSelected = Selection.entityIds.Contains(entityId);
             var isHovered = selectionRect.Contains(Event.current.mousePosition);
             var isWindowFocused = _hierarchyHasFocus;
             return (isSelected, isHovered, isWindowFocused);
