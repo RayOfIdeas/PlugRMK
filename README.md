@@ -9,7 +9,8 @@ A Unity package containing editor tools and runtime utilities designed to enhanc
 - **Component Utilities** - Duplicate components, save ScriptableObjects as dirty
 - **Asset Database Utilities** - Simplified asset loading and management
 - **Scene Selection Overlay** - Quick scene switching toolbar overlay
-- **Custom Property Drawers** - Enhanced inspector controls with lock and disable attributes
+- **Custom Property Drawers** - Enhanced inspector controls with lock, disable, dropdown and list naming attributes
+- **Enum Editor & Diff Tool** - Visually rename/reorder enum members and safely propagate the changes across referencing assets
 - **Simple Folder Icons** - Custom folder icons in the Project window
 - **Hierarchy Extensions** - Custom styling for hierarchy items
 - **Vector3 Context Menu** - Quick set Vector3 values to zero/one from context menu
@@ -27,7 +28,8 @@ A Unity package containing editor tools and runtime utilities designed to enhanc
 #### Unity-Specific Utilities
 - **Game Utilities** - Audio, Color, Component, Transform, Coroutine, and LayerMask utilities
 - **HierarchyExt** - Hierarchy styling system
-- **Property Attributes** - Custom attributes for inspector (`[Lock]`, `[Disable]`)
+- **Property Attributes** - Custom attributes for inspector (`[Lock]`, `[Disable]`, `[EnumEditor]`, `[DropdownSR]`, `[ListElementName]`, `[DropdownIntString]`)
+- **IntStringList** - ScriptableObject list of int-string pairs used to back `[DropdownIntString]` fields
 
 ## 📦 Installation
 
@@ -76,8 +78,29 @@ public class ExampleScript : MonoBehaviour
     
     [Disable]
     public float disabledField = 42f;
+
+    [ListElementName("Item")]
+    public List<string> namedListElements;
+
+    [SerializeReference, DropdownSR]
+    public IMyInterface polymorphicField;
+
+    [DropdownIntString("MyIntStringList")]
+    public int lookupValue;
 }
 ```
+
+#### Enum Editor & Diff Tool
+```csharp
+using PlugRMK.UnityUti;
+
+public class ExampleScript : MonoBehaviour
+{
+    [EnumEditor]
+    public MyEnum enumField;
+}
+```
+Adds a gear-icon button next to the field in the inspector, opening a dedicated window for renaming/reordering enum members, with a diff view that safely updates every asset and script referencing the changed members.
 
 ### Runtime Utilities
 
@@ -165,11 +188,17 @@ PlugRMK/
 │       ├── GameUtility/            # Game development utilities
 │       ├── HierarchyExt/           # Hierarchy extensions
 │       └── PropertyAttributes/     # Custom inspector attributes
+│           ├── DisableAttribute/           # [Disable]
+│           ├── LockAttribute/              # [Lock]
+│           ├── ListElementNameAttribute/   # [ListElementName]
+│           ├── DropdownSRAttribute/        # [DropdownSR] (SerializeReference dropdown)
+│           ├── DropdownIntStringAttribute/ # [DropdownIntString] + IntStringList
+│           └── EnumEditorAttribute/        # [EnumEditor] + EnumEditorWindow/EnumDiffWindow
 ```
 
 ## 📋 Requirements
 
-- **Unity Version:** 6000.2 or later (should work on 2019 above too)
+- **Unity Version:** 6000.5.3f1 or later (should work on 2019 above too)
 - **Dependencies:** None
 
 ## 📝 License
