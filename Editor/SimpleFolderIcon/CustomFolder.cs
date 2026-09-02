@@ -39,7 +39,11 @@ namespace SimpleFolderIcon.Editor
             }
             else
             {
+                #if UNITY_6000_6_OR_NEWER
+                imageRect = new Rect(rect.x + 8, rect.y - 1, rect.height + 2, rect.height + 2);
+                #else
                 imageRect = new Rect(rect.x + 2, rect.y - 1, rect.height + 2, rect.height + 2);
+                #endif
             }
 
             var texture = IconDictionaryCreator.IconDictionary[Path.GetFileName(path)];
