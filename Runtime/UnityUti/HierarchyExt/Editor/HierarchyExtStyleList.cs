@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PlugRMK.UnityUti.Hext
 {
-    [CreateAssetMenu(fileName ="HierarchyExtStyleList", menuName ="ScriptableObjects/Editor/Hierarchy Ext Style List")]
+    [CreateAssetMenu(fileName ="HierarchyExtStyleList", menuName ="Scriptable Objects/Editor/Hierarchy Ext Style List")]
     public class HierarchyExtStyleList : ScriptableObject
     {
         public List<HierarchyExtStyle> styles = new();
