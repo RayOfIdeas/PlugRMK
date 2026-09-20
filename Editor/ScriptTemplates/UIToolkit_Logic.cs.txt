@@ -1,0 +1,41 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+#ROOTNAMESPACEBEGIN#
+    [RequireComponent(typeof(PanelRenderer))]
+    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        PanelRenderer _panelRenderer;
+
+        void Awake()
+        {
+            _panelRenderer = GetComponent<PanelRenderer>();
+            _panelRenderer.RegisterUIReloadCallback(OnUIReload);
+        }
+
+        void OnDestroy()
+        {
+            if (_panelRenderer != null)
+                _panelRenderer.UnregisterUIReloadCallback(OnUIReload);
+        }
+
+        void OnUIReload(
+            PanelRenderer panelRenderer,
+            VisualElement rootElement,
+            int version)
+        {
+            var _rootUI = rootElement.Q<VisualElement>("");
+        }
+        
+        void Show()
+        {
+        }
+
+        void Hide()
+        {
+        }
+    }
+#ROOTNAMESPACEEND#
