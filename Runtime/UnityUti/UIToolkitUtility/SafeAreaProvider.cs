@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public static class SafeAreaProvider
+namespace PlugRMK.UnityUti
 {
-    public static Rect? Override;
-    public static Rect Current
+    public static class SafeAreaProvider
     {
-        get
+        public static Rect? Override;
+        public static Rect Current
         {
-            if (Override.HasValue)
-                return Override.Value;
-            return Screen.safeArea;
+            get
+            {
+                if (Override.HasValue)
+                    return Override.Value;
+                return Screen.safeArea;
+            }
         }
     }
 }
