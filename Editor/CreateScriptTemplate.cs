@@ -27,7 +27,7 @@ namespace PlugRMK.UnityUti.EditorUti
         public static void CreateUGUIEditorWindow() => CreateScriptFromTemplateName("UGUIEditorWindow");
 
         [MenuItem("Assets/Create/Scripting/UI Toolkit Logic", priority = PRIORITY_INDEX, secondaryPriority = 5)]
-        public static void CreateUIToolkitEditorWindow() => CreateScriptFromTemplateName("UIToolkit_Logic");
+        public static void CreateUIToolkitLogic() => CreateScriptFromTemplateName("UIToolkit_Logic");
 
         [MenuItem("Assets/Create/Scripting/UI Toolkit Editor Window", priority = PRIORITY_INDEX, secondaryPriority = 6)]
         public static void CreateUIToolkitEditorWindow() => CreateScriptFromTemplateName("UIToolkit_EditorWindow");
